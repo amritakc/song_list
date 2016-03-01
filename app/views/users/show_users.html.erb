@@ -1,0 +1,17 @@
+<a href='/songs'>Dashboard</a>
+
+<h1>Others who added <%= @songg.artist %> - <%= @songg.title %></h1>
+
+
+<table style = "width:80%">
+	<tr>
+	    <th>Name</th>
+	    <th>Times Added</th>		
+  	</tr>
+<% @userfavs.each do |x| %>
+	<tr>
+		<td><a href='/users/<%= x.user_id %>'><%= x.name %></td>
+		<td><%= x.count_fav%></td>
+	</tr>
+<% end %>
+</table> 

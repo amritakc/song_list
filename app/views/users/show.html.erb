@@ -1,0 +1,42 @@
+<h1>Hello, <%= @user.name%> <%= @user.username %>! </h1>
+
+<h3>All the songs in our hub:</h3>
+
+
+<table style = "width:80%">
+	<tr>
+	    <th>Artist</th>
+	    <th>Title</th>		
+	    <th>No. of Times Song Has Been Added</th>
+	    <th>Add to Playlist</th>
+  	</tr>
+<% @all_songs.each do |x| %>
+	<tr>
+		<td><%= x.artist %></td>
+		<td><a href = '/songs/<%=x.id%>'> <%= x.title %> </a></td>
+		<td><%= x.count_song %></td>
+		<td>
+			<form action = '/add_song/<%= x.id %>' method = 'post'>
+				<input name ="authenticity_token" value ="<%= form_authenticity_token%>" type="hidden">
+				<input name ="_method" value ="patch" type="hidden">
+				<input type = 'submit' value = 'Add'>
+			</form>
+		</td>
+	</tr>
+<% end %>
+</table> 
+
+
+<h3>Add a song</h3>
+	<form action = '/create_song/<%= @user.id %>' method = 'post'>
+	<input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+	Title:<input type = 'text' name = 'title'><br>
+	Artist:<input type = 'text' name = 'artist'><br>
+	<input type = 'submit' value = 'Add Song'>
+</form>
+
+<% if flash[:error] %>
+	<% flash[:error].each do |value| %>
+		 <%= value %><br>
+	<% end %>
+<% end %>
